@@ -1,29 +1,47 @@
-import React, { useState } from "react";
-import { mockSearchResults } from "../constants/mock";
-import { XIcon, SearchIcon } from "@heroicons/react/solid";
+import React, { useContext, useState } from "react";
+import ThemeContext from "../context/ThemeContext";
+import { searchSymbol } from "../api/stock-api";
 import SearchResults from "./SearchResults";
+import { SearchIcon, XIcon } from "@heroicons/react/solid";
 
-export const Search = () => {
+const Search = () => {
+  const { darkMode } = useContext(ThemeContext);
+
   const [input, setInput] = useState("");
-  const [bestMatches, setBestMatches] = useState(mockSearchResults.result);
+
+  const [bestMatches, setBestMatches] = useState([]);
+
+  const updateBestMatches = async () => {
+    try {
+      if (input) {
+        const searchResults = await searchSymbol(input);
+        const result = searchResults.result;
+        setBestMatches(result);
+      }
+    } catch (error) {
+      setBestMatches([]);
+      console.log(error);
+    }
+  };
 
   const clear = () => {
     setInput("");
     setBestMatches([]);
   };
 
-  const updateBestMatches = () => {
-    setBestMatches(mockSearchResults.result);
-  };
-
   return (
-    <div className="flex items-center my-4 border-2 rounded-md relative z-50 w-96 bg-white border-neutral-200 ">
-      {/*Value equel to input state */}
+    <div
+      className={`flex items-center my-4 border-2 rounded-md relative z-50 w-96 ${
+        darkMode ? "bg-gray-900 border-gray-800" : "bg-white border-neutral-200"
+      }`}
+    >
       <input
         type="text"
         value={input}
-        className="w-full px-4 py-2 focus:outline-none rounded-md"
-        placeholder="Search Ticker..."
+        className={`w-full px-4 py-2 focus:outline-none rounded-md ${
+          darkMode ? "bg-gray-900" : null
+        }`}
+        placeholder="Search stock..."
         onChange={(event) => setInput(event.target.value)}
         onKeyPress={(event) => {
           if (event.key === "Enter") {
@@ -31,20 +49,20 @@ export const Search = () => {
           }
         }}
       />
-
-      {/* only display if input is in textfield */}
       {input && (
-        <button onClick={clear}>
-          <XIcon className="h-6 w-6 fill-gray-500 pr-2" />
+        <button onClick={clear} className="m-1">
+          <XIcon className="h-4 w-4 fill-gray-500" />
         </button>
       )}
-         {/* else.. */}
-      <button onClick={updateBestMatches} className="h-9 w-9 rounded flex justify-center items-center m-1 p-2">
-      <SearchIcon className="h-5 w-5 fill-slate-500" />
+      <button
+        onClick={updateBestMatches}
+        className="h-8 w-8 rounded-md flex justify-center items-center m-1 p-2 transition duration-300 hover:ring-2 ring-indigo-400"
+      >
+        <SearchIcon className="h-4 w-4 fill-gray-400" />
       </button>
-
-
-      {input && bestMatches > 0 ? <SearchResults results={bestMatches}/> : null}
+      {input && bestMatches.length > 0 ? (
+        <SearchResults results={bestMatches} />
+      ) : null}
     </div>
   );
 };
