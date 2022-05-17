@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@base{
+    body{
+        @apply font-quicksand;
+    }
+
+}
+
+@layer components{
+    .custom-scrollbar::-webkit-scrollbar{
+        width: 4px
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-track{
+   background: transparent;
+
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb{
+        background-color: lightgrey;
+        width: 5px;
+        border-radius: 10px
+}
+.custom-scroll-dark::-webkit-slider-thumb{
+    background-color: #00003E;
+}
+}
