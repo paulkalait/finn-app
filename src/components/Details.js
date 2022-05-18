@@ -30,7 +30,7 @@ const Details = ({ details }) => {
           return (
             <li key={item} className="w-full h-fullflex-1 flex justify-between items-center ">
               <span>{detailsList[item]}</span>
-              <span className="font-bold">
+              <span className="font-extrabold uppercase text-sm">
                 {item === "marketCapitalization"
                   ? `${convertMillionToBillion(details[item])} B`
                   : details[item]}
