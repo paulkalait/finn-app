@@ -11,6 +11,7 @@ const ThemeIcon = () => {
   return (
   
     <button
+    // MADE THE BUTTON HIDDEN FOR NOW
       className={`sm: hidden border-1 border-neutral-400 p-2 absolute right-8 xl:right-32 shadow-lg ${
         darkMode ? "shadow-gray-800" : null
       }`}
