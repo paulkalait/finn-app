@@ -9,8 +9,9 @@ const ThemeIcon = () => {
     setDarkMode(!darkMode);
   };
   return (
+  
     <button
-      className={` rounded-lg border-1 border-neutral-400 p-2 absolute right-8 xl:right-32 shadow-lg ${
+      className={`sm: hidden border-1 border-neutral-400 p-2 absolute right-8 xl:right-32 shadow-lg ${
         darkMode ? "shadow-gray-800" : null
       }`}
       onClick={toggleDarkMode}
@@ -23,6 +24,7 @@ const ThemeIcon = () => {
         }`}
       />
     </button>
+    
   );
 };
 

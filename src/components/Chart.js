@@ -81,7 +81,7 @@ const Chart = () => {
           );
         })}
       </ul>
-      <ResponsiveContainer className="w-full p-0">
+      <ResponsiveContainer className="sm: w-full p-0">
         <AreaChart data={(data)}>
           <defs>
             <linearGradient id="chartColor" x1="0" y1="0" x2="0" y2="1">

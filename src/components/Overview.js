@@ -12,7 +12,7 @@ const Overview = ({symbol, price, change, changePercent, currency}) => {
         <span className="text-2xl xl:text-4xl 2xl:text-5xl flex items-center">
           ${price}
           <span className="text-lg xl:text-xl 2xl:text-2xl text-neutral-400 m-2">
-            ${currency}
+            {currency}
           </span>
         </span>
         <span>
